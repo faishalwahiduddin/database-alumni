@@ -9,7 +9,7 @@ class AlumniController extends Controller
 {
     public function showForm()
     {
-        return view('update-alumni');
+        return view('welcome');
     }
 
     public function store(Request $request)
