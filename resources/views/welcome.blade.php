@@ -37,6 +37,7 @@
                         Webcam
                         <input accept="image/*" capture="camera" id="profile_picture_camera"
                             name="profile_picture_camera" class="hidden">
+                        {{-- <input type="button" id="profile_picture_camera" class="hidden"> --}}
                     </label>
                     <label
                         class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer">
@@ -250,6 +251,8 @@
                     const context = canvas.getContext('2d');
                     context.drawImage(video, 0, 0, canvas.width, canvas.height);
                     document.getElementById('profileImagePreview').src = canvas.toDataURL('image/png');
+                    document.getElementById('profile_picture_camera').value = canvas.toDataURL('image/png');
+
 
                     stream.getTracks().forEach(track => track.stop());
                     document.body.removeChild(cameraOverlay);

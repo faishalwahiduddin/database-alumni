@@ -32,6 +32,7 @@ class AlumniController extends Controller
     {
         $request->validate([
             'profile_picture_upload' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'profile_picture_camera' => 'nullable|string',
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:alumni,email',
             'phone' => 'required|string|max:15',
@@ -54,14 +55,14 @@ class AlumniController extends Controller
             ]);
 
             $profilePicturePath = $uploadedFile['secure_url'];
-        }
-        if ($request->hasFile('profile_picture_camera')) {
-            $file = $request->file('profile_picture_camera');
-            $filename = $request->phone . '.' . $file->getClientOriginalExtension();
+        } elseif ($request->filled('profile_picture_camera')) {
+            $imageData = $request->input('profile_picture_camera');
+            $filename = $request->phone . '.png'; // Assuming the camera capture is in PNG format
 
-            $uploadedFile = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+            $uploadedFile = $this->cloudinary->uploadApi()->upload($imageData, [
                 'public_id' => 'profile_pictures/' . $filename,
-                'folder' => 'profile_pictures'
+                'folder' => 'profile_pictures',
+                'resource_type' => 'image'
             ]);
 
             $profilePicturePath = $uploadedFile['secure_url'];
@@ -84,5 +85,11 @@ class AlumniController extends Controller
         return redirect()->route('alumni.detail', $request->phone);
 
         // return redirect()->back()->with('success', 'Data alumni has been saved successfully.');
+    }
+
+    public function showIdCard($phone)
+    {
+        $alumni = Alumni::where('phone', $phone)->first();
+        return view('id-card', compact('alumni'));
     }
 }
