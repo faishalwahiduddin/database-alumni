@@ -28,7 +28,7 @@
                 <label class="block mb-2 text-sm font-medium text-gray-700" for="profile_picture">Foto Profil:</label>
                 <div class="flex items-center mb-4">
                     <img id="profileImagePreview"
-                        src="{{ old('profile_picture') ? asset('storage/' . old('profile_picture')) : 'https://via.placeholder.com/300x400' }}"
+                        src="{{ $alumni->profile_picture ?? 'https://via.placeholder.com/300x400' }}  "
                         alt="Profile Picture" class="aspect-3-4 rounded-lg object-cover">
                 </div>
                 <div class="flex space-x-4">
@@ -169,7 +169,7 @@
             </div>
 
             <!-- Data Kerja Section -->
-            <h2 class="text-2xl font-semibold mb-4">Data Kerja</h2>
+            <h2 class="text-2xl font-semibold mb-4">Data Pekerjaan</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="company">Perusahaan:</label>

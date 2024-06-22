@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Alumni;
 use Illuminate\Http\Request;
+use Cloudinary\Cloudinary;
 
 class AlumniController extends Controller
 {
+    protected $cloudinary;
+
+    public function __construct(Cloudinary $cloudinary)
+    {
+        $this->cloudinary = $cloudinary;
+    }
     public function showForm()
     {
         return view('welcome')->with('alumni', null);
@@ -40,7 +47,24 @@ class AlumniController extends Controller
         if ($request->hasFile('profile_picture_upload')) {
             $file = $request->file('profile_picture_upload');
             $filename = $request->phone . '.' . $file->getClientOriginalExtension();
-            $profilePicturePath = $file->storeAs('profile_pictures', $filename, 'public');
+
+            $uploadedFile = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+                'public_id' => 'profile_pictures/' . $filename,
+                'folder' => 'profile_pictures'
+            ]);
+
+            $profilePicturePath = $uploadedFile['secure_url'];
+        }
+        if ($request->hasFile('profile_picture_camera')) {
+            $file = $request->file('profile_picture_camera');
+            $filename = $request->phone . '.' . $file->getClientOriginalExtension();
+
+            $uploadedFile = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+                'public_id' => 'profile_pictures/' . $filename,
+                'folder' => 'profile_pictures'
+            ]);
+
+            $profilePicturePath = $uploadedFile['secure_url'];
         }
 
         $alumni = Alumni::create([
