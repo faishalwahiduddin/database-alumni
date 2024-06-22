@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alumni extends Model
 {
+    // table name alumni
+    protected $table = 'alumni';
     use HasFactory;
     protected $fillable = [
         'profile_picture',

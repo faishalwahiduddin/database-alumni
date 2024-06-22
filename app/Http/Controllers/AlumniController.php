@@ -34,7 +34,7 @@ class AlumniController extends Controller
             $profilePicturePath = $file->storeAs('profile_pictures', $filename, 'public');
         }
 
-        Alumni::create([
+        $alumni = Alumni::create([
             'profile_picture' => $profilePicturePath,
             'full_name' => $request->full_name,
             'email' => $request->email,
@@ -46,6 +46,8 @@ class AlumniController extends Controller
             'position' => $request->position,
         ]);
 
-        return redirect()->back()->with('success', 'Data alumni has been saved successfully.');
+        dd($alumni->toArray());
+
+        // return redirect()->back()->with('success', 'Data alumni has been saved successfully.');
     }
 }

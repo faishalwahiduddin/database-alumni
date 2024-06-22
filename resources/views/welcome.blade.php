@@ -20,34 +20,35 @@
 <body class="bg-gray-100 p-10">
 
     <div class="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold mb-6">Update Data Alumni</h1>
+        <h1 class="text-3xl font-bold mb-6">Data Alumni FMIPA Unpad</h1>
+        <form action="{{ route('alumni.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <!-- Profile Picture Section -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700" for="profile_picture">Foto Profil:</label>
+                <div class="flex items-center mb-4">
+                    <img id="profileImagePreview"
+                        src="{{ old('profile_picture') ? asset('storage/' . old('profile_picture')) : 'https://via.placeholder.com/300x400' }}"
+                        alt="Profile Picture" class="aspect-3-4 rounded-lg object-cover">
+                </div>
+                <div class="flex space-x-4">
+                    <label
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer">
+                        Webcam
+                        <input accept="image/*" capture="camera" id="profile_picture_camera"
+                            name="profile_picture_camera" class="hidden">
+                    </label>
+                    <label
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer">
+                        Upload
+                        <input type="file" accept="image/*" id="profile_picture_upload" name="profile_picture_upload"
+                            class="hidden">
+                    </label>
+                </div>
+            </div>
+            <!-- Data Diri Section -->
+            <h2 class="text-2xl font-semibold mb-4">Data Diri</h2>
 
-        <!-- Profile Picture Section -->
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-700" for="profile_picture">Profile Picture:</label>
-            <div class="flex items-center mb-4">
-                <img id="profileImagePreview"
-                    src="{{ old('profile_picture') ? asset('storage/' . old('profile_picture')) : 'https://via.placeholder.com/300x400' }}"
-                    alt="Profile Picture" class="aspect-3-4 rounded-lg object-cover">
-            </div>
-            <div class="flex space-x-4">
-                <label
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer">
-                    Take from Camera
-                    <input accept="image/*" capture="camera" id="profile_picture_camera" name="profile_picture_camera"
-                        class="hidden">
-                </label>
-                <label
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer">
-                    Upload from Device
-                    <input type="file" accept="image/*" id="profile_picture_upload" name="profile_picture_upload"
-                        class="hidden">
-                </label>
-            </div>
-        </div>
-        <!-- Data Diri Section -->
-        <h2 class="text-2xl font-semibold mb-4">Data Diri</h2>
-        <form action="#" method="POST">
             @csrf
             <!-- Nama Lengkap and Birthday -->
             <div class="grid grid-cols-1 gap-6 mb-6">
@@ -118,7 +119,7 @@
                         Mahasiswa:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="nim" name="nim">
+                        type="text" id="npm" name="npm">
                 </div>
                 {{-- <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="nia">Nomor Induk
