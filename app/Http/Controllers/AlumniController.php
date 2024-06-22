@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Cloudinary\Cloudinary;
 
@@ -82,7 +83,10 @@ class AlumniController extends Controller
 
         // dd($alumni->toArray());
 
-        return redirect()->route('alumni.detail', $request->phone);
+        // return redirect()->route('alumni.detail', $request->phone);
+        // redirect to id card
+        // return redirect()->route('alumni.idCard', $request->phone);
+        return redirect()->route('alumni.idCardNpm', $request->npm);
 
         // return redirect()->back()->with('success', 'Data alumni has been saved successfully.');
     }
@@ -90,6 +94,31 @@ class AlumniController extends Controller
     public function showIdCard($phone)
     {
         $alumni = Alumni::where('phone', $phone)->first();
+        // if null, redirect to form
+        if (!$alumni) {
+            return redirect()->route('alumni.form');
+        }
         return view('id-card', compact('alumni'));
+    }
+
+
+    public function showIdCardNpm($npm)
+    {
+        $alumni = Alumni::where('npm', $npm)->first();
+        if (!$alumni) {
+            return redirect()->route('alumni.form');
+        }
+        return view('id-card', compact('alumni'));
+    }
+
+    public function downloadIdCard($phone)
+    {
+        $alumni = Alumni::where('phone', $phone)->first();
+        if (!$alumni) {
+            return redirect()->route('alumni.form');
+        }
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('id-card', compact('alumni'));
+        return $pdf->download('id-card.pdf');
     }
 }

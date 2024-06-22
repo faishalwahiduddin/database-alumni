@@ -12,3 +12,5 @@ Route::post('/update-alumni', [AlumniController::class, 'store'])->name('alumni.
 Route::get('/detail/{phone}', [AlumniController::class, 'detail'])->name('alumni.detail');
 
 Route::get('/detail/{phone}/id-card', [AlumniController::class, 'showIdCard'])->name('alumni.idCard');
+Route::get('/detail/{phone}/download-id-card', [AlumniController::class, 'downloadIdCard'])->name('alumni.downloadIdCard');
+Route::get('/{npm}', [AlumniController::class, 'showIdCardNpm'])->name('alumni.idCardNpm');
