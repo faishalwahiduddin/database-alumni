@@ -9,7 +9,16 @@ class AlumniController extends Controller
 {
     public function showForm()
     {
-        return view('welcome');
+        return view('welcome')->with('alumni', null);
+    }
+
+    public function detail($phone)
+    {
+        // dd($phone);
+        $alumni = Alumni::where('phone', $phone)->first();
+
+
+        return view('welcome')->with('alumni', $alumni);
     }
 
     public function store(Request $request)
@@ -46,7 +55,9 @@ class AlumniController extends Controller
             'position' => $request->position,
         ]);
 
-        dd($alumni->toArray());
+        // dd($alumni->toArray());
+
+        return redirect()->route('alumni.detail', $request->phone);
 
         // return redirect()->back()->with('success', 'Data alumni has been saved successfully.');
     }

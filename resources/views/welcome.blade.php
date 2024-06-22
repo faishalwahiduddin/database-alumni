@@ -56,7 +56,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="full_name">Nama Lengkap:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="full_name" name="full_name">
+                        type="text" id="full_name" name="full_name" value="{{ $alumni->full_name ?? '' }}">
                 </div>
                 {{-- <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="birthday">Birthday:</label>
@@ -101,13 +101,13 @@
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="email">Email:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="email" id="email" name="email">
+                        type="email" id="email" name="email" value="{{ $alumni->email ?? '' }}">
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="phone">No. Handphone:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="phone" name="phone">
+                        type="text" id="phone" name="phone" value="{{ $alumni->phone ?? '' }}">
                 </div>
             </div>
 
@@ -119,7 +119,7 @@
                         Mahasiswa:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="npm" name="npm">
+                        type="text" id="npm" name="npm" value="{{ $alumni->npm ?? '' }}">
                 </div>
                 {{-- <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="nia">Nomor Induk
@@ -150,13 +150,14 @@
                         Studi:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="program_study" name="program_study">
+                        type="text" id="program_study" name="program_study"
+                        value="{{ $alumni->program_study ?? '' }}">
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="entry_year">Tahun Masuk:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="entry_year" name="entry_year">
+                        type="text" id="entry_year" name="entry_year" value="{{ $alumni->entry_year ?? '' }}">
                 </div>
                 {{-- <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="graduation_year">Tahun
@@ -174,18 +175,19 @@
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="company">Perusahaan:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="company" name="company">
+                        type="text" id="company" name="company" value="{{ $alumni->company ?? '' }}">
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700" for="position">Posisi:</label>
                     <input
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        type="text" id="position" name="position">
+                        type="text" id="position" name="position" value="{{ $alumni->position ?? '' }}">
                 </div>
             </div>
-
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
-                type="submit">Simpan Data</button>
+            @if ($alumni == null)
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                    type="submit">Simpan Data</button>
+            @endif
         </form>
     </div>
 
