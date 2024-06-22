@@ -27,7 +27,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-700" for="profile_picture">Profile Picture:</label>
             <div class="flex items-center mb-4">
                 <img id="profileImagePreview"
-                    src="{{ old('profile_picture') ? asset('storage/' . old('profile_picture')) : 'https://via.placeholder.com/150' }}"
+                    src="{{ old('profile_picture') ? asset('storage/' . old('profile_picture')) : 'https://via.placeholder.com/300x400' }}"
                     alt="Profile Picture" class="aspect-3-4 rounded-lg object-cover">
             </div>
             <div class="flex space-x-4">
@@ -191,6 +191,7 @@
     @vite('resources/js/app.js')
     <!-- JavaScript for handling camera input -->
     <script>
+        // Event listener for "Take from Camera" button
         document.getElementById('profile_picture_camera').addEventListener('change', function(event) {
             const fileInput = event.target;
             const file = fileInput.files[0];
@@ -256,7 +257,23 @@
         }
 
         document.getElementById('profile_picture_camera').addEventListener('click', startCamera);
+
+        // Event listener for "Upload from Device" button
+        document.getElementById('profile_picture_upload').addEventListener('change', function(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImagePreview').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
+
+
 
 </body>
 
